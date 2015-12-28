@@ -52,7 +52,7 @@ public class BattleBoard {
 		String toRet="  ";
 		for (int col=0;col<max_col;col++)
 			toRet+=" "+col+" ";
-		toRet+='\n';
+		toRet+="\r\n";
 		char c='A';
 		for (int row=0;row<max_row;row++)
 		{
@@ -62,7 +62,7 @@ public class BattleBoard {
 				Cell cell=mattrix[col][row];
 				toRet+=cell.toString();
 			}
-			toRet+="\n";
+			toRet+="\r\n";
 			c++;
 		}
 		return toRet;
