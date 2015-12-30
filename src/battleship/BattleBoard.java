@@ -1,13 +1,21 @@
 package battleship;
 
-public class BattleBoard {
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+
+public class BattleBoard implements Runnable{
 
 	private Cell[][] mattrix;
+	private Socket m_xConnection;
 	private final int max_row=10;
 	private final int max_col=10;
 	
-	public BattleBoard()
+	public BattleBoard(Socket client)
 	{
+		m_xConnection=client;
 		mattrix=new Cell[max_row][max_col];
 		for (int row=0;row<max_row;row++)
 		{
@@ -16,6 +24,48 @@ public class BattleBoard {
 				mattrix[row][col]=new Cell();
 			}
 		}
+	}
+	
+	public void run()
+	{
+		System.out.println("new client connected");
+		
+		try
+		{
+		
+			placePeieces();
+		
+			DataOutputStream toClient= new DataOutputStream(m_xConnection.getOutputStream());
+			BufferedReader fromClient = new BufferedReader(new InputStreamReader(m_xConnection.getInputStream()));
+	
+			for (int i=1;true;i++)
+			{
+				toClient.writeBytes("MOVE "+i+"\r\n--------------------------------\r\n");
+				
+				toClient.writeBytes(toString());
+				toClient.writeBytes("\r\n");	//signal for end of message
+				
+				String move=fromClient.readLine();
+				if (move==null) break;
+				
+				System.out.println("Player move:"+move);
+				
+				try
+				{
+					move(move);
+				}
+				catch (IndexOutOfBoundsException e)
+				{
+					toClient.writeBytes("your move <"+move+"> is bad and you shall feel bad!\r\n");
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			System.out.println(e);
+		}
+		System.out.println("client disconnected");
+		
 	}
 	
 	public void placePeieces()
