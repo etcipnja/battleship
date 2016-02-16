@@ -2,26 +2,26 @@ package battleship;
 
 public class Cell {
 
-	public boolean m_isHit;
-	public boolean m_isShip;
+	private boolean m_isHit;
 	private BattlePiece m_ePiece;
+	private boolean m_cantPlace;
 	
 	public Cell()
 	{
-		//m_sShip="";
 		m_isHit=false;
-		m_isShip=false;
+		m_ePiece = null;
+		m_cantPlace=true;
 	}
 	public Cell(BattlePiece bp)
 	{
 		m_ePiece=bp;
-		m_isShip=true;
+		m_isHit = false;
+		m_cantPlace=true;
 	}
 	
-	public String getPiece()
+	public BattlePiece getPiece()
 	{
-		if (m_ePiece==null) return "nothing here";
-		return ""; //m_ePiece.
+		return m_ePiece;	 
 	}
 	
 	public void hit()
@@ -29,13 +29,18 @@ public class Cell {
 		m_isHit=true;
 	}
 	
+	public void setHit()
+	{
+		m_cantPlace = true;
+	}
+	
 	public String toString()
 	{
 		String sToRet="";
-		if (!m_isHit && !m_isShip) sToRet=" . ";
-		if (!m_isHit && m_isShip) sToRet=" * ";
-		if (m_isHit && !m_isShip) sToRet=" 0 ";
-		if (m_isHit && m_isShip) sToRet=" x ";
+		if (!m_isHit && m_ePiece == null) sToRet=" . ";
+		if (!m_isHit && m_ePiece != null) sToRet=" * ";
+		if (m_isHit && m_ePiece == null) sToRet=" 0 ";
+		if (m_isHit && m_ePiece != null) sToRet=" x ";
 		return sToRet;
 	}
 }

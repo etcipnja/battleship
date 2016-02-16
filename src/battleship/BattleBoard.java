@@ -1,19 +1,19 @@
 package battleship;
-
+import java.util.*;
 public class BattleBoard {
 
-	private Cell[][] mattrix;
+	private Cell[][] matrix;
 	private final int max_row=10;
 	private final int max_col=10;
 	
 	public BattleBoard()
 	{
-		mattrix=new Cell[max_row][max_col];
+		matrix=new Cell[max_row][max_col];
 		for (int row=0;row<max_row;row++)
 		{
 			for (int col=0;col<max_col;col++)
 			{
-				mattrix[row][col]=new Cell();
+				matrix[row][col]=new Cell();
 			}
 		}
 	}
@@ -21,8 +21,8 @@ public class BattleBoard {
 	public void placePeieces()
 	{
 			
-		BattlePiece[] pieces = new BattlePiece[] { BattlePiece.Submarine, BattlePiece.Destroer } ;
-		//placing submarine
+		BattlePiece[] pieces = new BattlePiece[] { BattlePiece.Submarine, BattlePiece.Destroyer , BattlePiece.Cruiser  } ;
+
 		for (int i=0;i<pieces.length; i++)
 			placePiece(pieces[i]);
 		
@@ -30,9 +30,40 @@ public class BattleBoard {
 	
 	private void placePiece(BattlePiece bp)
 	{
-		int col, row;
-		boolean bVertical;
+		Random gen = new Random();
+		
+		do
+		{
+			boolean bVertical = gen.nextBoolean();	
+			
+			int col = gen.nextInt(10);
+			int row = gen.nextInt(10);
+			
+			if(bVertical)
+			{
+				for(int i =0; i < bp.getLength(); i++)
+				{
+					if(matrix[row][col].getPiece() != null)
+					{
+						
+					}
+				}
+				
+			}
+			
+		}while(true);
+		
+		
 	}
+	
+	private boolean checkPos(BattlePiece bp, col , row)
+	{
+		for(int i = 0; i < bp.getLength(); i++)
+		{
+			
+		}
+	}
+	
 	
 	public void move(String move) throws IndexOutOfBoundsException
 	{
@@ -43,7 +74,7 @@ public class BattleBoard {
 		if (row<0 || row>9 || col<0 || col>9)
 			throw new IndexOutOfBoundsException();
 		
-		mattrix[row][col].hit();
+		matrix[row][col].hit();
 	}
 	
 	
@@ -59,7 +90,7 @@ public class BattleBoard {
 			toRet+=c+" ";
 			for (int col=0;col<max_col;col++)
 			{
-				Cell cell=mattrix[col][row];
+				Cell cell=matrix[col][row];
 				toRet+=cell.toString();
 			}
 			toRet+="\r\n";
