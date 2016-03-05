@@ -6,31 +6,96 @@ import java.net.*;
 
 public class Main {
 	public static void main(String[] args){
+
+		BattleBoard board = new BattleBoard();
+		board.placePeieces();
 		
-		try
+		BattlePlayer player = new BattlePlayer(board);	
+		
+		
+		
+		
+		
+		
+		
+
+
+
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
+		/*try
 		{
 			ServerSocket server = new ServerSocket(6789);
 			Socket connection=server.accept();
 			System.out.println("new client connected");
-			
+
 			BattleBoard xBoard=new BattleBoard();
 			xBoard.placePeieces();
-			
+
 			DataOutputStream toClient= new DataOutputStream(connection.getOutputStream());
 			BufferedReader fromClient = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			
+
 			for (int i=1;true;i++)
 			{
 				toClient.writeBytes("MOVE "+i+"\r\n--------------------------------\r\n");
-				
+
 				toClient.writeBytes(xBoard.toString());
 				toClient.writeBytes("\r\n");	//signal for end of message
-				
+
 				String move=fromClient.readLine();
 				if (move==null) break;
-				
+
 				System.out.println("Player move:"+move);
-				
+
 				try
 				{
 					xBoard.move(move);
@@ -46,7 +111,10 @@ public class Main {
 		catch (IOException e)
 		{
 			System.out.println(e);
-		}
+		}*/
 
 	}
+	
+	
+
 }

@@ -1,7 +1,7 @@
 package battleship;
 
 public enum BattlePiece {
-	Submarine(2,"submarine"), Destroyer(3,"destroyer"), Cruiser(4,"cruiser") ;
+	Boat(1,"boat"), Submarine(2,"submarine"), Destroyer(3,"destroyer"), Cruiser(4,"cruiser") ;
 	
 	private int m_iLength;
 	private int m_iLeftAlive;
