@@ -11,8 +11,17 @@ public class Main {
 		BattleBoard board = new BattleBoard();
 		board.placePeieces();
 		
-		BattlePlayer player = new BattlePlayer(board);
+		//BattlePlayer player = new BattlePlayer(board);
 		
+		BattlePlayerStep player2 = new BattlePlayerStep(board);
+		
+		do
+		{
+			
+			
+		}while(player2.smartStep() != 4);
+		
+		System.out.println("You won!");
 	}
 }
 		

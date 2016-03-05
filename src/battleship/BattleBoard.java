@@ -16,49 +16,32 @@ public class BattleBoard implements BattleBoardInterface{
 	private final int max_col=10;
 
 
-
-
 	public BattleBoard()
 	{
 		matrix=new Cell[max_row][max_col];
 
 		for (int row=0;row<max_row;row++)
-		{
 			for (int col=0;col<max_col;col++)
 				matrix[row][col]=new Cell();
-		}
-		
+
 	}
-
-
-
 
 	public BattleBoard(Socket client)
 
 	{
-
-
-
 		m_xConnection=client;
 		matrix=new Cell[max_row][max_col];
 
 		for (int row=0;row<max_row;row++)
-		{
 			for (int col=0;col<max_col;col++)
-			{
 				matrix[row][col]=new Cell();
-			}
-		}
 
 	}
-
 
 	public Cell[][] getCellMatrix()
 	{
 		return matrix;
 	}
-
-
 
 	public void run()
 	{
@@ -116,17 +99,13 @@ public class BattleBoard implements BattleBoardInterface{
 		for (int i=0;i<pieces.length; i++)
 			placePiece(pieces[i]);
 
-
 		System.out.println(toString());
-
-
-
 
 	}
 
 	private void placePiece(BattlePiece bp)
 	{
-		Random gen = new Random(1);
+		Random gen = new Random(3);
 
 		int row;
 		int col;
@@ -166,14 +145,7 @@ public class BattleBoard implements BattleBoardInterface{
 						matrix[row+vetDisp[f]][col+i+hosDisp[f]].cantPlace();
 
 			}
-
 		}
-
-
-
-
-
-
 	}
 
 	private boolean checkPos(BattlePiece bp, int col , int row, boolean bVertical)
@@ -203,7 +175,6 @@ public class BattleBoard implements BattleBoardInterface{
 		return true;	
 	}
 
-
 	public void move(String move) throws IndexOutOfBoundsException
 	{
 		if (move.length()!=2)
@@ -230,7 +201,6 @@ public class BattleBoard implements BattleBoardInterface{
 			return 0;
 		}
 
-
 		else if(toExamin.getPiece() != null && !toExamin.isHit())
 		{
 			if(toExamin.getPiece().hit() )
@@ -244,17 +214,10 @@ public class BattleBoard implements BattleBoardInterface{
 				toExamin.hit();
 				return 2;
 			}
-
-
 		}
 
-
-
 		return 17;
-
-
 	}
-
 
 	public String toString()
 	{
@@ -277,6 +240,3 @@ public class BattleBoard implements BattleBoardInterface{
 		return toRet;
 	}
 }
-
-
-
