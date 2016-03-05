@@ -1,11 +1,19 @@
 package battleship;
 import java.util.*;
-public class BattleBoard implements BattleBoardInterface {
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+
+
+public class BattleBoard implements BattleBoardInterface{
 
 	private Cell[][] matrix;
+	private Socket m_xConnection;
+
 	private final int max_row=10;
 	private final int max_col=10;
-
 
 
 
@@ -13,6 +21,27 @@ public class BattleBoard implements BattleBoardInterface {
 	public BattleBoard()
 	{
 		matrix=new Cell[max_row][max_col];
+
+		for (int row=0;row<max_row;row++)
+		{
+			for (int col=0;col<max_col;col++)
+				matrix[row][col]=new Cell();
+		}
+		
+	}
+
+
+
+
+	public BattleBoard(Socket client)
+
+	{
+
+
+
+		m_xConnection=client;
+		matrix=new Cell[max_row][max_col];
+
 		for (int row=0;row<max_row;row++)
 		{
 			for (int col=0;col<max_col;col++)
@@ -23,10 +52,56 @@ public class BattleBoard implements BattleBoardInterface {
 
 	}
 
+
 	public Cell[][] getCellMatrix()
 	{
 		return matrix;
 	}
+
+
+
+	public void run()
+	{
+		System.out.println("new client connected");
+
+		try
+		{
+
+			placePeieces();
+
+			DataOutputStream toClient= new DataOutputStream(m_xConnection.getOutputStream());
+			BufferedReader fromClient = new BufferedReader(new InputStreamReader(m_xConnection.getInputStream()));
+
+			for (int i=1;true;i++)
+			{
+				toClient.writeBytes("MOVE "+i+"\r\n--------------------------------\r\n");
+
+				toClient.writeBytes(toString());
+				toClient.writeBytes("\r\n");	//signal for end of message
+
+				String move=fromClient.readLine();
+				if (move==null) break;
+
+				System.out.println("Player move:"+move);
+
+				try
+				{
+					move(move);
+				}
+				catch (IndexOutOfBoundsException e)
+				{
+					toClient.writeBytes("your move <"+move+"> is bad and you shall feel bad!\r\n");
+				}
+			}
+		}
+		catch (IOException e)
+		{
+			System.out.println(e);
+		}
+		System.out.println("client disconnected");
+
+	}
+
 
 	public void placePeieces()
 	{
@@ -40,8 +115,8 @@ public class BattleBoard implements BattleBoardInterface {
 
 		for (int i=0;i<pieces.length; i++)
 			placePiece(pieces[i]);
-			
-		
+
+
 		System.out.println(toString());
 
 
@@ -145,7 +220,7 @@ public class BattleBoard implements BattleBoardInterface {
 	{
 		if(row<0 || row>=10 || col<0 || col>= 10)
 			return 17;
-		
+
 		Cell toExamin = matrix[row][col];
 
 
@@ -169,11 +244,11 @@ public class BattleBoard implements BattleBoardInterface {
 				toExamin.hit();
 				return 2;
 			}
-				
-			
+
+
 		}
 
-		
+
 
 		return 17;
 
@@ -202,3 +277,6 @@ public class BattleBoard implements BattleBoardInterface {
 		return toRet;
 	}
 }
+
+
+

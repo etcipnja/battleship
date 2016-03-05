@@ -5,12 +5,16 @@ import java.net.*;
 
 
 public class Main {
+
 	public static void main(String[] args){
 
 		BattleBoard board = new BattleBoard();
 		board.placePeieces();
 		
-		BattlePlayer player = new BattlePlayer(board);	
+		BattlePlayer player = new BattlePlayer(board);
+		
+	}
+}
 		
 		
 		
@@ -73,8 +77,14 @@ public class Main {
 		
 
 		/*try
+=======
+	public static void main(String[] args)
+	{
+		try
+>>>>>>> branch 'master' of https://github.com/etcipnja/battleship.git
 		{
 			ServerSocket server = new ServerSocket(6789);
+<<<<<<< HEAD
 			Socket connection=server.accept();
 			System.out.println("new client connected");
 
@@ -85,7 +95,12 @@ public class Main {
 			BufferedReader fromClient = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
 			for (int i=1;true;i++)
+=======
+			
+			while(true)
+>>>>>>> branch 'master' of https://github.com/etcipnja/battleship.git
 			{
+<<<<<<< HEAD
 				toClient.writeBytes("MOVE "+i+"\r\n--------------------------------\r\n");
 
 				toClient.writeBytes(xBoard.toString());
@@ -104,17 +119,15 @@ public class Main {
 				{
 					toClient.writeBytes("your move <"+move+"> is bad and you shall feel bad!\r\n");
 				}
+=======
+				Socket connection=server.accept();
+				new Thread( new BattleBoard(connection)).start();
+>>>>>>> branch 'master' of https://github.com/etcipnja/battleship.git
 			}
-			System.out.println("game over");
-			server.close();
 		}
 		catch (IOException e)
 		{
 			System.out.println(e);
+<<<<<<< HEAD
 		}*/
 
-	}
-	
-	
-
-}
