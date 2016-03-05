@@ -21,6 +21,6 @@ public class Main {
 		{
 			System.out.println(e);
 		}
-		System.out.println("game over! - line ");
+		System.out.println("game over! - line hoho");
 	}
 }
