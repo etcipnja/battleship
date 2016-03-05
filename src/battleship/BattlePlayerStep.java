@@ -53,16 +53,16 @@ public class BattlePlayerStep {
 			if(hitRet == 0)
 			{
 				System.out.println("You missed!");
-				System.out.println(board.toString());
+//				System.out.println(board.toString());
 			}
 
-			else if (hitRet == 1)
-				System.out.println(board.toString());
+//			else if (hitRet == 1)
+//				System.out.println(board.toString());
 			
 			else
 			{
 				numD++;
-				System.out.println(board.toString());
+//				System.out.println(board.toString());
 			}
 
 			lastHit = hitRet;
@@ -102,7 +102,7 @@ public class BattlePlayerStep {
 				curHitC = OHitC;
 
 				System.out.println("You missed!");
-				System.out.println(board.toString());
+//				System.out.println(board.toString());
 			}
 
 			else if(hitRet == 1)
@@ -112,7 +112,7 @@ public class BattlePlayerStep {
 				curHitR += hosDisp[hitStep];
 				curHitC += vetDisp[hitStep];
 				
-				System.out.println(board.toString());
+//				System.out.println(board.toString());
 			}
 
 			else if(hitRet == 2)
@@ -121,7 +121,7 @@ public class BattlePlayerStep {
 				lastHit = hitRet;
 				hitStep =0;
 				numD++;
-				System.out.println(board.toString());
+	//			System.out.println(board.toString());
 			}
 			else if(hitRet == 17)
 			{

@@ -15,13 +15,16 @@ public class Main {
 		
 		BattlePlayerStep player2 = new BattlePlayerStep(board);
 		
+		int iStep=0;
 		do
 		{
-			
-			
+			System.out.println(board.toString());
+			iStep++;
+			System.out.println("--------------------------------");
+			System.out.println("Step "+iStep+":");
 		}while(player2.smartStep() != 4);
 		
-		System.out.println("You won!");
+		System.out.println("You won in "+iStep+" steps");
 	}
 }
 		
