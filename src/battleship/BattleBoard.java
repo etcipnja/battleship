@@ -90,10 +90,10 @@ public class BattleBoard implements BattleBoardInterface{
 	{
 
 		BattlePiece[] pieces = new BattlePiece[]{ 
-				BattlePiece.Boat,
-				BattlePiece.Submarine,
-				BattlePiece.Destroyer,
-				BattlePiece.Cruiser
+				BattlePiece.Boat1,BattlePiece.Boat2,BattlePiece.Boat3,BattlePiece.Boat4,
+				BattlePiece.Submarine1,BattlePiece.Submarine2,BattlePiece.Submarine3,
+				BattlePiece.Destroyer1,BattlePiece.Destroyer2,
+				BattlePiece.Cruiser1
 		};
 
 		for (int i=0;i<pieces.length; i++)
@@ -210,7 +210,7 @@ public class BattleBoard implements BattleBoardInterface{
 			}
 			else
 			{
-				System.out.println("You destryoed the "+toExamin.getPiece().name());
+				System.out.println("You destryoed the "+toExamin.getPiece().toString());
 				toExamin.hit();
 				return 2;
 			}

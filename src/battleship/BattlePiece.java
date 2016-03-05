@@ -1,7 +1,11 @@
 package battleship;
 
 public enum BattlePiece {
-	Boat(1,"boat"), Submarine(2,"submarine"), Destroyer(3,"destroyer"), Cruiser(4,"cruiser") ;
+	
+	Boat1(1,"Happy Ending"), Boat2(1,"Serendipity"), Boat3(1,"Quiet Riot"), Boat4(1,"Joint Effort"),
+	Submarine1(2,"Corsair"), Submarine2(2,"Remora"), Submarine3(2,"Abraham Lincoln"), 
+	Destroyer1(3,"Blakeley"), Destroyer2(3,"Claxton"),
+	Cruiser1(4,"Saratoga") ;
 	
 	private int m_iLength;
 	private int m_iLeftAlive;
@@ -27,7 +31,21 @@ public enum BattlePiece {
 	
 	public String toString()
 	{
-		return m_sName+"("+m_iLength+")";
+		String sToRet;
+		switch(m_iLength)
+		{
+		case 1:
+			sToRet="boat"; break;
+		case 2:
+			sToRet="submarine"; break;
+		case 3:
+			sToRet="destroyer"; break;
+		case 4:
+			sToRet="cruiser"; break;
+		default:
+			sToRet="WTF?"; break;
+		}
+		return sToRet+" \""+m_sName+"\" ("+m_iLeftAlive+"/"+m_iLength+")";
 	}
 	public int getLength()
 	{
