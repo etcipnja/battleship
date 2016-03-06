@@ -1,6 +1,7 @@
 package battleship;
 import java.util.*;
 
+
 public class BattlePlayerStep {
 
 	private Cell [] [] matrix;
@@ -8,17 +9,12 @@ public class BattlePlayerStep {
 	
 	private int hitStep;
 
-	private int lastHit;
+	private int lastHit; //TODO: last hit shall be boolean
 	
-	private Position OHit;
-	
-	//private int OHitR;
-	//private int OHitC;
-
+	//TODO class variable names shall start with the lowercase and shall have different naming from local variables in the method.  
+	//for example two variables below shall be named as "_ohit" or "m_xOHit" 
+	private Position OHit;	
 	private Position CHit;
-	
-	//private int curHitR;
-	//private int curHitC;
 
 	private int numD;
 
@@ -35,15 +31,14 @@ public class BattlePlayerStep {
 
 	}
 
+	//TODO this method shall return the Position that was selected for the move
 	public int smartStep()
 	{
 		Random gen = new Random(2);
 		
-
-
-		if(lastHit != 1)
+		if(lastHit != 1) //previous shoot was a miss
 		{
-			do
+			do //find a position where you have not hit yet
 			{
 				OHit = new Position();
 
@@ -52,33 +47,18 @@ public class BattlePlayerStep {
 			int row = OHit.getRow();
 			int col = OHit.getCol();
 			
+			matrix[row][col].hit(); //mark position as hit in the own matrix
+			int hitRet = board.hit(row, col); //check the board
 			
-			matrix[row][col].hit();
-			int hitRet = board.hit(row, col);
-			
-
-
 			if(hitRet == 0)
-			{
 				System.out.println("You missed!");
-//				System.out.println(board.toString());
-			}
-
-//			else if (hitRet == 1)
-//				System.out.println(board.toString());
-			
-			else if (hitRet == 2)
+			else if (hitRet == 2)  //killed
 				numD++;
-			
-			
 
-			
 			lastHit = hitRet;
-			
 			CHit = new Position(row,col);
 		}
-
-		else
+		else //previous shoot was a hit
 		{
 			int [] hosDisp = {-1,0,1,0};//rows
 			int [] vetDisp = {0,1,0,-1};//cols
@@ -92,51 +72,38 @@ public class BattlePlayerStep {
 			{
 				hitStep++;
 				CHit = new Position(OHit.getRow(),OHit.getCol());
-				return numD;
+				return numD;  //TODO are you sure you need to return here?
 			}
 			
 			
 			if(!matrix[curHitR+hosDisp[hitStep]][curHitC+vetDisp[hitStep]].isHit())
 				hitRet = board.hit(curHitR+hosDisp[hitStep], curHitC+vetDisp[hitStep]);
 
-
-			if(hitRet == 0)
+			if(hitRet == 0) //missed
 			{
-
 				hitStep++;
-
 				CHit = new Position(OHit.getRow(),OHit.getCol());
-
 				System.out.println("You missed!");		
 			}
-
-			else if(hitRet == 1)
+			else if(hitRet == 1) //wounded
 			{
 				matrix[curHitR+hosDisp[hitStep]][curHitC+vetDisp[hitStep]].hit();
 				
-				
 				CHit.setCol(curHitC+vetDisp[hitStep]);
 				CHit.setRow(curHitR+hosDisp[hitStep]);
-				
-				
-//				System.out.println(board.toString());
 			}
-
-			else if(hitRet == 2)
+			else if(hitRet == 2) //destroyed
 			{
 				matrix[curHitR+hosDisp[hitStep]][curHitC+vetDisp[hitStep]].hit();
 				lastHit = hitRet;
 				hitStep =0;
 				numD++;
-	//			System.out.println(board.toString());
 			}
-			else if(hitRet == 17)
+			else if(hitRet == 17) //TODO WTF?
 			{
 				hitStep++;
 				CHit = new Position(OHit.getRow(),OHit.getCol());
 			}
-				
-
 		}
 
 		return numD;

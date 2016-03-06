@@ -12,8 +12,8 @@ public class BattleBoard implements BattleBoardInterface{
 	private Cell[][] matrix;
 	private Socket m_xConnection;
 
-	private final int max_row=10;
-	private final int max_col=10;
+	private final int max_row=10;  //TODO remove it from here. You shall use Position::max_row instead
+	private final int max_col=10;  //TODO the same as above
 
 
 	public BattleBoard()
@@ -148,7 +148,7 @@ public class BattleBoard implements BattleBoardInterface{
 		}
 	}
 
-	private boolean checkPos(BattlePiece bp, int col , int row, boolean bVertical)
+	private boolean checkPos(BattlePiece bp, int col , int row, boolean bVertical)   
 	{
 		for(int i =0; i<bp.getLength(); i++)
 		{
@@ -187,7 +187,7 @@ public class BattleBoard implements BattleBoardInterface{
 		matrix[row][col].hit();
 	}
 
-	public int hit(int row, int col)
+	public int hit(int row, int col)  //TODO shall use Position 
 	{
 		if(row<0 || row>=10 || col<0 || col>= 10)
 			return 17;

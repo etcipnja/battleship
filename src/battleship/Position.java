@@ -10,7 +10,7 @@ public class Position {
 	int m_iCol;
 	
 	//creates a random position within the limits
-	public Position() throws IndexOutOfBoundsException
+	public Position() 
 	{
 		Random gen = new Random();
 
@@ -21,7 +21,7 @@ public class Position {
 
 	//creates position with the given coordinates
 	//throws exceptions if positions are invalid
-	public Position(int iRow, int iCol)
+	public Position(int iRow, int iCol) throws IllegalArgumentException
 	{
 		if(iCol < 0 || iCol >= max_col || iRow < 0 || iRow >= max_row )
 			throw new IllegalArgumentException("Cant make that position");
@@ -40,7 +40,7 @@ public class Position {
 		return m_iRow;
 	}
 
-	public void setCol(int iCol) throws IndexOutOfBoundsException
+	public void setCol(int iCol) throws IllegalArgumentException
 	{
 		if(iCol < 0 || iCol >= max_col)
 			throw new IllegalArgumentException("The column is invalid");
@@ -48,7 +48,7 @@ public class Position {
 		m_iCol = iCol;
 	}
 
-	public void setRow(int iRow) throws IndexOutOfBoundsException
+	public void setRow(int iRow) throws IllegalArgumentException
 	{
 		if( iRow < 0 || iRow >= max_row )
 			throw new IllegalArgumentException("The row is invalid");
@@ -58,6 +58,6 @@ public class Position {
 
 	public String toString()
 	{
-		return "The position is ("+m_iRow+","+m_iCol+")";
+		return "("+m_iRow+","+m_iCol+")";
 	}
 }
