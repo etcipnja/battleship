@@ -9,11 +9,16 @@ public class BattlePlayerStep {
 	private int hitStep;
 
 	private int lastHit;
-	private int OHitR;
-	private int OHitC;
+	
+	private Position OHit;
+	
+	//private int OHitR;
+	//private int OHitC;
 
-	private int curHitR;
-	private int curHitC;
+	private Position CHit;
+	
+	//private int curHitR;
+	//private int curHitC;
 
 	private int numD;
 
@@ -33,21 +38,24 @@ public class BattlePlayerStep {
 	public int smartStep()
 	{
 		Random gen = new Random(2);
-		int row;
-		int col;
+		
 
 
 		if(lastHit != 1)
 		{
 			do
 			{
-				row = gen.nextInt(10);
-				col = gen.nextInt(10);
+				OHit = new Position();
 
-			}while(matrix[row][col].isHit());
+			}while(matrix[OHit.getRow()][OHit.getCol()].isHit());
 
+			int row = OHit.getRow();
+			int col = OHit.getCol();
+			
+			
 			matrix[row][col].hit();
 			int hitRet = board.hit(row, col);
+			
 
 
 			if(hitRet == 0)
@@ -59,17 +67,15 @@ public class BattlePlayerStep {
 //			else if (hitRet == 1)
 //				System.out.println(board.toString());
 			
-			else
-			{
+			else if (hitRet == 2)
 				numD++;
-//				System.out.println(board.toString());
-			}
+			
+			
 
+			
 			lastHit = hitRet;
-			OHitR = row;
-			OHitC = col;
-			curHitR = OHitR;
-			curHitC = OHitC;
+			
+			CHit = new Position(row,col);
 		}
 
 		else
@@ -79,12 +85,13 @@ public class BattlePlayerStep {
 
 			int hitRet = 0;	
 			
+			int curHitR = CHit.getRow();
+			int curHitC = CHit.getCol();
 			
 			if(curHitR+hosDisp[hitStep] < 0 || curHitR+hosDisp[hitStep] >= 10 || curHitC+vetDisp[hitStep] < 0 || curHitC+vetDisp[hitStep] >= 10)
 			{
 				hitStep++;
-				curHitR = OHitR;
-				curHitC = OHitC;
+				CHit = new Position(OHit.getRow(),OHit.getCol());
 				return numD;
 			}
 			
@@ -98,19 +105,19 @@ public class BattlePlayerStep {
 
 				hitStep++;
 
-				curHitR = OHitR;
-				curHitC = OHitC;
+				CHit = new Position(OHit.getRow(),OHit.getCol());
 
-				System.out.println("You missed!");
-//				System.out.println(board.toString());
+				System.out.println("You missed!");		
 			}
 
 			else if(hitRet == 1)
 			{
 				matrix[curHitR+hosDisp[hitStep]][curHitC+vetDisp[hitStep]].hit();
 				
-				curHitR += hosDisp[hitStep];
-				curHitC += vetDisp[hitStep];
+				
+				CHit.setCol(curHitC+vetDisp[hitStep]);
+				CHit.setRow(curHitR+hosDisp[hitStep]);
+				
 				
 //				System.out.println(board.toString());
 			}
@@ -126,8 +133,7 @@ public class BattlePlayerStep {
 			else if(hitRet == 17)
 			{
 				hitStep++;
-				curHitR = OHitR;
-				curHitC = OHitC;
+				CHit = new Position(OHit.getRow(),OHit.getCol());
 			}
 				
 

@@ -99,7 +99,7 @@ public class BattleBoard implements BattleBoardInterface{
 		for (int i=0;i<pieces.length; i++)
 			placePiece(pieces[i]);
 
-		System.out.println(toString());
+		
 
 	}
 

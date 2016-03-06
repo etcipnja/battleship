@@ -22,8 +22,9 @@ public class Main {
 			iStep++;
 			System.out.println("--------------------------------");
 			System.out.println("Step "+iStep+":");
-		}while(player2.smartStep() != 4);
+		}while(player2.smartStep() != 10);
 		
+		System.out.println(board.toString());
 		System.out.println("You won in "+iStep+" steps");
 	}
 }
