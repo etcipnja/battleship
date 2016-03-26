@@ -1,7 +1,6 @@
 package battleship;
 import java.util.*;
 
-
 public class BattlePlayerStep {
 
 	private Cell [] [] matrix;
@@ -9,12 +8,10 @@ public class BattlePlayerStep {
 	
 	private int hitStep;
 
-	private int lastHit; //TODO: last hit shall be boolean
+	private boolean lastHit; 
 	
-	//TODO class variable names shall start with the lowercase and shall have different naming from local variables in the method.  
-	//for example two variables below shall be named as "_ohit" or "m_xOHit" 
-	private Position OHit;	
-	private Position CHit;
+	private Position m_xOHit;	
+	private Position m_xCHit;
 
 	private int numD;
 
@@ -31,32 +28,35 @@ public class BattlePlayerStep {
 
 	}
 
-	//TODO this method shall return the Position that was selected for the move
 	public int smartStep()
 	{
 		Random gen = new Random(2);
 		
-		if(lastHit != 1) //previous shoot was a miss
+		if(!lastHit) //previous shoot was a miss
 		{
 			do //find a position where you have not hit yet
 			{
-				OHit = new Position();
+				m_xOHit = new Position();
 
-			}while(matrix[OHit.getRow()][OHit.getCol()].isHit());
+			}while(matrix[m_xOHit.getRow()][m_xOHit.getCol()].isHit());
 
-			int row = OHit.getRow();
-			int col = OHit.getCol();
+			int row = m_xOHit.getRow();
+			int col = m_xOHit.getCol();
 			
 			matrix[row][col].hit(); //mark position as hit in the own matrix
-			int hitRet = board.hit(row, col); //check the board
+			int hitRet = board.hit(row, col); //hit the board
+			
+			lastHit = false;
 			
 			if(hitRet == 0)
 				System.out.println("You missed!");
 			else if (hitRet == 2)  //killed
 				numD++;
+			else
+				lastHit = true;
 
-			lastHit = hitRet;
-			CHit = new Position(row,col);
+			
+			m_xCHit = new Position(row,col);
 		}
 		else //previous shoot was a hit
 		{
@@ -65,14 +65,14 @@ public class BattlePlayerStep {
 
 			int hitRet = 0;	
 			
-			int curHitR = CHit.getRow();
-			int curHitC = CHit.getCol();
+			int curHitR = m_xCHit.getRow();
+			int curHitC = m_xCHit.getCol();
 			
 			if(curHitR+hosDisp[hitStep] < 0 || curHitR+hosDisp[hitStep] >= 10 || curHitC+vetDisp[hitStep] < 0 || curHitC+vetDisp[hitStep] >= 10)
 			{
 				hitStep++;
-				CHit = new Position(OHit.getRow(),OHit.getCol());
-				return numD;  //TODO are you sure you need to return here?
+				m_xCHit = new Position(m_xOHit.getRow(),m_xOHit.getCol());
+				return numD;  
 			}
 			
 			
@@ -82,28 +82,24 @@ public class BattlePlayerStep {
 			if(hitRet == 0) //missed
 			{
 				hitStep++;
-				CHit = new Position(OHit.getRow(),OHit.getCol());
+				m_xCHit = new Position(m_xOHit.getRow(),m_xOHit.getCol());
 				System.out.println("You missed!");		
 			}
 			else if(hitRet == 1) //wounded
 			{
 				matrix[curHitR+hosDisp[hitStep]][curHitC+vetDisp[hitStep]].hit();
 				
-				CHit.setCol(curHitC+vetDisp[hitStep]);
-				CHit.setRow(curHitR+hosDisp[hitStep]);
+				m_xCHit.setCol(curHitC+vetDisp[hitStep]);
+				m_xCHit.setRow(curHitR+hosDisp[hitStep]);
 			}
 			else if(hitRet == 2) //destroyed
 			{
 				matrix[curHitR+hosDisp[hitStep]][curHitC+vetDisp[hitStep]].hit();
-				lastHit = hitRet;
+				lastHit = false;
 				hitStep =0;
 				numD++;
 			}
-			else if(hitRet == 17) //TODO WTF?
-			{
-				hitStep++;
-				CHit = new Position(OHit.getRow(),OHit.getCol());
-			}
+			
 		}
 
 		return numD;

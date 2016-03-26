@@ -12,16 +12,16 @@ public class BattleBoard implements BattleBoardInterface{
 	private Cell[][] matrix;
 	private Socket m_xConnection;
 
-	private final int max_row=10;  //TODO remove it from here. You shall use Position::max_row instead
-	private final int max_col=10;  //TODO the same as above
+	
+	private final Position max = new Position(10,10);
 
 
 	public BattleBoard()
 	{
-		matrix=new Cell[max_row][max_col];
+		matrix=new Cell[max.getRow()][max.getCol()];
 
-		for (int row=0;row<max_row;row++)
-			for (int col=0;col<max_col;col++)
+		for (int row=0;row<max.getRow();row++)
+			for (int col=0;col<max.getCol();col++)
 				matrix[row][col]=new Cell();
 
 	}
@@ -30,10 +30,10 @@ public class BattleBoard implements BattleBoardInterface{
 
 	{
 		m_xConnection=client;
-		matrix=new Cell[max_row][max_col];
+		matrix=new Cell[max.getRow()][max.getCol()];
 
-		for (int row=0;row<max_row;row++)
-			for (int col=0;col<max_col;col++)
+		for (int row=0;row<max.getRow();row++)
+			for (int col=0;col<max.getCol();col++)
 				matrix[row][col]=new Cell();
 
 	}
@@ -154,7 +154,7 @@ public class BattleBoard implements BattleBoardInterface{
 		{
 			if(bVertical)
 			{
-				if(row+i>=max_row || col>=max_col)
+				if(row+i>=max.getRow() || col>=max.getCol())
 					return false;
 
 				else if (matrix[row+i][col].getCantPlace())
@@ -163,7 +163,7 @@ public class BattleBoard implements BattleBoardInterface{
 
 			else
 			{
-				if(row>=max_row || col+i>=max_col)
+				if(row>=max.getRow() || col+i>=max.getCol())
 					return false;
 
 				else if (matrix[row][col+i].getCantPlace())
@@ -222,14 +222,14 @@ public class BattleBoard implements BattleBoardInterface{
 	public String toString()
 	{
 		String toRet="  ";
-		for (int col=0;col<max_col;col++)
+		for (int col=0;col<max.getCol();col++)
 			toRet+=" "+col+" ";
 		toRet+="\r\n";
 		char c='A';
-		for (int row=0;row<max_row;row++)
+		for (int row=0;row<max.getRow();row++)
 		{
 			toRet+=c+" ";
-			for (int col=0;col<max_col;col++)
+			for (int col=0;col<max.getCol();col++)
 			{
 				Cell cell=matrix[row][col];
 				toRet+=cell.toString();
