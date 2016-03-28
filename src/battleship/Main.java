@@ -11,7 +11,19 @@ public class Main {
 		BattleBoard board = new BattleBoard();
 		board.placePeieces();
 		
-		//BattlePlayer player = new BattlePlayer(board);
+		//TODO: player shall not take the board as a parameter 
+		//instead, player shall make his move and Main shall check if that move was a hit 
+		//then Main tells the player if its move was a hit or not
+		
+		// so the code shall look like
+		
+		//while(!board.isAllDead()) //returns true when all ships are destroyed
+		//{
+		//	Position xPos=player2.smartStep();
+		//	int iResult=board.hit(xPos);
+		//	player2.smartStepResult(xPos,iResult);
+		//}
+		
 		
 		BattlePlayerStep player2 = new BattlePlayerStep(board);
 		
@@ -29,6 +41,12 @@ public class Main {
 	}
 }
 		
+
+
+
+
+
+
 
 		/*try
 =======

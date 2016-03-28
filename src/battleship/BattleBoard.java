@@ -12,8 +12,8 @@ public class BattleBoard implements BattleBoardInterface{
 	private Cell[][] matrix;
 	private Socket m_xConnection;
 
-	
-	private final Position max = new Position(10,10);
+	//TODO2 remove it from here. You shall use Position::max_row instead
+	private final Position max = new Position(10,10); //BTW: this code generates exception right away
 
 
 	public BattleBoard()

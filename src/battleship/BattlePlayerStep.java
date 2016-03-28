@@ -28,6 +28,7 @@ public class BattlePlayerStep {
 
 	}
 
+	//TODO2 this method shall return the Position that was selected for the move
 	public int smartStep()
 	{
 		Random gen = new Random(2);
@@ -72,7 +73,7 @@ public class BattlePlayerStep {
 			{
 				hitStep++;
 				m_xCHit = new Position(m_xOHit.getRow(),m_xOHit.getCol());
-				return numD;  
+				return numD;   //TODO2 are you sure you need to return here?
 			}
 			
 			
