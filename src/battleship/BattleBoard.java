@@ -12,16 +12,13 @@ public class BattleBoard implements BattleBoardInterface{
 	private Cell[][] matrix;
 	private Socket m_xConnection;
 
-	//TODO2 remove it from here. You shall use Position::max_row instead
-	private final Position max = new Position(10,10); //BTW: this code generates exception right away
-
 
 	public BattleBoard()
 	{
-		matrix=new Cell[max.getRow()][max.getCol()];
+		matrix=new Cell[Position.max_row][Position.max_col];
 
-		for (int row=0;row<max.getRow();row++)
-			for (int col=0;col<max.getCol();col++)
+		for (int row=0;row<Position.max_row;row++)
+			for (int col=0;col<Position.max_col;col++)
 				matrix[row][col]=new Cell();
 
 	}
@@ -30,10 +27,10 @@ public class BattleBoard implements BattleBoardInterface{
 
 	{
 		m_xConnection=client;
-		matrix=new Cell[max.getRow()][max.getCol()];
+		matrix=new Cell[Position.max_row][Position.max_col];
 
-		for (int row=0;row<max.getRow();row++)
-			for (int col=0;col<max.getCol();col++)
+		for (int row=0;row<Position.max_row;row++)
+			for (int col=0;col<Position.max_col;col++)
 				matrix[row][col]=new Cell();
 
 	}
@@ -154,7 +151,7 @@ public class BattleBoard implements BattleBoardInterface{
 		{
 			if(bVertical)
 			{
-				if(row+i>=max.getRow() || col>=max.getCol())
+				if(row+i>=Position.max_row || col>=Position.max_col)
 					return false;
 
 				else if (matrix[row+i][col].getCantPlace())
@@ -163,7 +160,7 @@ public class BattleBoard implements BattleBoardInterface{
 
 			else
 			{
-				if(row>=max.getRow() || col+i>=max.getCol())
+				if(row>=Position.max_row || col+i>=Position.max_col)
 					return false;
 
 				else if (matrix[row][col+i].getCantPlace())
@@ -187,12 +184,12 @@ public class BattleBoard implements BattleBoardInterface{
 		matrix[row][col].hit();
 	}
 
-	public int hit(int row, int col)  //TODO shall use Position 
+	public int hit(Position a)  
 	{
-		if(row<0 || row>=10 || col<0 || col>= 10)
+		if(a.getRow()<0 || a.getRow()>=10 || a.getCol()<0 || a.getCol()>= 10)
 			return 17;
 
-		Cell toExamin = matrix[row][col];
+		Cell toExamin = matrix[a.getRow()][a.getCol()];
 
 
 		if(toExamin.getPiece() == null)
@@ -222,14 +219,14 @@ public class BattleBoard implements BattleBoardInterface{
 	public String toString()
 	{
 		String toRet="  ";
-		for (int col=0;col<max.getCol();col++)
+		for (int col=0;col<Position.max_col;col++)
 			toRet+=" "+col+" ";
 		toRet+="\r\n";
 		char c='A';
-		for (int row=0;row<max.getRow();row++)
+		for (int row=0;row<Position.max_row;row++)
 		{
 			toRet+=c+" ";
-			for (int col=0;col<max.getCol();col++)
+			for (int col=0;col<Position.max_col;col++)
 			{
 				Cell cell=matrix[row][col];
 				toRet+=cell.toString();

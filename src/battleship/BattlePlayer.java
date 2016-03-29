@@ -17,10 +17,9 @@ public class BattlePlayer {
 
 		do
 		{
-			int row = gen.nextInt(10);
-			int col = gen.nextInt(10);
+			Position toUse = new Position();
 
-			int hitRet = a.hit(row, col);
+			int hitRet = a.hit(toUse);
 
 			if(hitRet != 17)
 				System.out.println(a.toString());
@@ -30,8 +29,8 @@ public class BattlePlayer {
 
 			else if(hitRet == 1)
 			{
-				int oRow = row;
-				int oCol = col;
+				int oRow = toUse.getRow();
+				int oCol = toUse.getCol();
 
 
 				int [] vetDisp = {0,1,0,-1};//cols
@@ -40,7 +39,8 @@ public class BattlePlayer {
 
 				for(int i = 0; i < 4; i++)
 				{
-					int theHit = a.hit(oRow+hosDisp[i], oCol+vetDisp[i]);
+					Position temp = new Position(oRow+hosDisp[i],oCol+vetDisp[i]);
+					int theHit = a.hit(temp);
 					
 					if(theHit != 17)
 						System.out.println(a.toString());
@@ -57,7 +57,8 @@ public class BattlePlayer {
 							curRow += hosDisp[i];
 							curCol += vetDisp[i];
 
-							ret = a.hit(curRow, curCol);
+							Position temp2 = new Position(curRow,curCol);
+							ret = a.hit(temp2);
 
 							if(ret != 17)
 								System.out.println(a.toString());

@@ -1,10 +1,13 @@
 package battleship;
 import java.util.*;
-
+/*
+ * MADE THE CORRECT CLASS IN BattlePlayerRetStepPos
+ * 
+ */
 public class BattlePlayerStep {
 
 	private Cell [] [] matrix;
-	BattleBoardInterface board;
+
 	
 	private int hitStep;
 
@@ -24,7 +27,7 @@ public class BattlePlayerStep {
 			for(int col = 0; col<10; col++)
 				matrix[row][col] = new Cell();
 
-		board = a;
+		
 
 	}
 
@@ -45,7 +48,7 @@ public class BattlePlayerStep {
 			int col = m_xOHit.getCol();
 			
 			matrix[row][col].hit(); //mark position as hit in the own matrix
-			int hitRet = board.hit(row, col); //hit the board
+			
 			
 			lastHit = false;
 			

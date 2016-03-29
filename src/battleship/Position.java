@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Position {
 
-	public final int max_row=10;
-	public final int max_col=10;
+	public final static int max_row=10;
+	public final static int max_col=10;
 
 	int m_iRow;
 	int m_iCol;
